@@ -1,6 +1,7 @@
 package crypto
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -29,4 +30,12 @@ func TestPrivateKeySign(t *testing.T) {
 	invalidPubKey := invalidPrivKey.Public()
 	assert.False(t, sig.Verify(invalidPubKey, msg))
 
+}
+
+func TestPublicKeyToAddress(t *testing.T) {
+	privKey := GeneratePrivateKey()
+	pubKey := privKey.Public()
+	address := pubKey.Address()
+	assert.Equal(t, addressLen, len(address.Bytes()))
+	fmt.Println(address)
 }
