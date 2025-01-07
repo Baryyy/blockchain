@@ -41,8 +41,13 @@ func TestPublicKeyToAddress(t *testing.T) {
 }
 
 func TestNewPrivateKeyFromString(t *testing.T) {
-	seed := "f6c5fbc8111c3c0c2583b0a52d6cb6b00baa93d9a9a3e56aa914c50ad23fa31c"
-	privkey := NewPrivateKeyFromString(seed)
-	assert.Equal(t, privKeyLen, len(privkey.Bytes()))
+	var (
+		seed       = "f6c5fbc8111c3c0c2583b0a52d6cb6b00baa93d9a9a3e56aa914c50ad23fa31c"
+		privKey    = NewPrivateKeyFromString(seed)
+		addressStr = "daf866c2551ac4b0a1f569d50dac00e62934be4a"
+	)
+	assert.Equal(t, privKeyLen, len(privKey.Bytes()))
+	address := privKey.Public().Address()
+	assert.Equal(t, addressStr, address.String())
 
 }
